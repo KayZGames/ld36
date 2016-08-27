@@ -6,6 +6,7 @@ class PositionRenderingSystem extends EntityProcessingSystem {
   GameStateManager gsm;
   Mapper<Position> pm;
   Mapper<Orientation> om;
+  Mapper<SpriteName> sm;
 
   CanvasRenderingContext2D ctx;
   SpriteSheet sheet;
@@ -16,7 +17,7 @@ class PositionRenderingSystem extends EntityProcessingSystem {
   double offsetY;
 
   PositionRenderingSystem(this.ctx, this.sheet)
-      : super(Aspect.getAspectForAllOf([Position, Orientation]));
+      : super(Aspect.getAspectForAllOf([Position, Orientation, SpriteName]));
 
   @override
   void begin() {
@@ -35,11 +36,11 @@ class PositionRenderingSystem extends EntityProcessingSystem {
   void processEntity(Entity entity) {
     var p = pm[entity];
     var o = om[entity];
-    var sprite = sheet['chariot'];
+    var s = sm[entity];
+    var sprite = sheet[s.name];
 
     ctx
       ..save()
-      ..fillStyle = 'red'
       ..translate(gsm.width / 2 - offsetX - size / 2 + p.xyz.x,
           gsm.height / 2 - offsetY - size / 2 + p.xyz.y)
       ..rotate(o.angle)
@@ -53,6 +54,9 @@ class PositionRenderingSystem extends EntityProcessingSystem {
           sprite.dst.top,
           sprite.dst.width,
           sprite.dst.height);
+
+    ctx.strokeStyle = 'red';
+    ctx.strokeRect(-sprite.dst.width/3, -sprite.dst.height/2, sprite.dst.width, sprite.dst.height);
     ctx.restore();
   }
 }

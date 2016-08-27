@@ -1,5 +1,13 @@
 {"frames": {
 
+"arrow":
+{
+	"frame": {"x":808,"y":2,"w":20,"h":5},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":5},
+	"sourceSize": {"w":20,"h":5}
+},
 "chariot":
 {
 	"frame": {"x":736,"y":2,"w":70,"h":29},
@@ -23,6 +31,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:aea4f17f84f7c76f07075e0ad25d2b4c:5c918263feefd3b1544fe28b6e7b30fa:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:17d79ffcf19452dd8c84c24b90d163f9:6b836816b5b2b6a358d8370d61dfddf2:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

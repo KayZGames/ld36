@@ -1,12 +1,14 @@
 part of shared;
 
-
 class Position extends Component {
   Vector3 xyz;
   Position(double x, double y) : xyz = new Vector3(x, y, 0.0);
 }
 
-class Controller extends Component {}
+class Controller extends Component {
+  double arrowCooldown = 0.0;
+  double maxArrowCooldown = 1.0;
+}
 
 class Orientation extends Component {
   double angle;
@@ -28,5 +30,15 @@ class Brake extends Component {
 
 class Velocity extends Component {
   Vector3 xyz;
-  Velocity() : xyz = new Vector3.zero();
+  Velocity(double x, double y) : xyz = new Vector3(x, y, 0.0);
+}
+
+class Arrow extends Component {}
+
+class Remote extends Component {}
+class NoTransmission extends Component {}
+
+class SpriteName extends Component {
+  String name;
+  SpriteName(this.name);
 }

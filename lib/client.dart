@@ -46,9 +46,10 @@ class Game extends GameBase {
       new Position(x, y),
       new Acceleration(),
       new Brake(),
-      new Velocity(),
+      new Velocity(0.0, 0.0),
       new Orientation(0.0),
-      new Controller()
+      new Controller(),
+      new SpriteName('chariot'),
     ]);
     var tm = world.getManager(TagManager) as TagManager;
     tm.register(player, playerTag);
@@ -70,6 +71,7 @@ class Game extends GameBase {
         new PositionRenderingSystem(hudCtx, spriteSheet),
         new ConnectedClientsRenderer(hudCtx, webSocket),
         new RemotePlayerUpdater(webSocket),
+        new SingleTransmissionSystem(),
       ],
       GameBase.physics: [
         // add at least one
