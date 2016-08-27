@@ -5,6 +5,7 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
   Mapper<Orientation> om;
   Mapper<SpriteName> sm;
   TagManager tm;
+  GroupManager gm;
 
   WebSocket webSocket;
 
@@ -50,22 +51,25 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
             new Position(content['x'], content['y']),
             new Orientation(content['angle']),
             new SpriteName('chariot'),
-            new Remote(),
+            new Remote(senderId),
           ]);
           knownPlayers.add(senderId);
           tm.register(entity, '$playerTag$senderId');
+          gm.add(entity, remotePlayerGroup);
         }
       }
     } else if (content['type'] == 'arrow') {
       var angle = content['angle'];
-      world.createAndAddEntity([
+      var entity = world.createAndAddEntity([
         new Position(content['x'], content['y']),
         new Orientation(angle),
-        new Velocity(250 * cos(angle), 250 * sin(angle)),
+        new Velocity(350 * cos(angle), 350 * sin(angle)),
         new Arrow(),
-        new Remote(),
-        new SpriteName('arrow')
+        new Remote(senderId),
+        new SpriteName('arrow'),
+        new Lifetime(2.5)
       ]);
+      gm.add(entity, remoteArrowGroup);
     }
   }
 

@@ -8,6 +8,14 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":5},
 	"sourceSize": {"w":20,"h":5}
 },
+"blood":
+{
+	"frame": {"x":830,"y":2,"w":16,"h":18},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":16,"h":18},
+	"sourceSize": {"w":20,"h":20}
+},
 "chariot":
 {
 	"frame": {"x":736,"y":2,"w":70,"h":29},
@@ -31,6 +39,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:17d79ffcf19452dd8c84c24b90d163f9:6b836816b5b2b6a358d8370d61dfddf2:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e3ab31d4db0b5fc665b5b553d98750a7:b1e4cf49790512c78b7b7ea5ca9a1835:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }

@@ -10,5 +10,7 @@ part 'src/shared/managers.dart';
 
 
 const String playerTag = 'player';
+const String remotePlayerGroup = 'rpg';
+const String remoteArrowGroup = 'rag';
 const double startX = 540.0;
 const double startY = 190.0;

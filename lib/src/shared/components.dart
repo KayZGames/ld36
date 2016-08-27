@@ -35,10 +35,18 @@ class Velocity extends Component {
 
 class Arrow extends Component {}
 
-class Remote extends Component {}
+class Remote extends Component {
+  int id;
+  Remote(this.id);
+}
 class NoTransmission extends Component {}
 
 class SpriteName extends Component {
   String name;
   SpriteName(this.name);
+}
+
+class Lifetime extends Component {
+  double value;
+  Lifetime(this.value);
 }

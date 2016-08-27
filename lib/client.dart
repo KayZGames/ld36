@@ -28,6 +28,7 @@ class Game extends GameBase {
 
     world.addManager(new GameStateManager());
     world.addManager(new TagManager());
+    world.addManager(new GroupManager());
 
     handleResize(window.innerWidth, window.innerHeight);
     window.onResize
@@ -70,6 +71,8 @@ class Game extends GameBase {
 //        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
         new PositionRenderingSystem(hudCtx, spriteSheet),
         new ConnectedClientsRenderer(hudCtx, webSocket),
+        new ArrowHitDetectionSystem(),
+        new LifetimeExpirationSystem(),
         new RemotePlayerUpdater(webSocket),
         new SingleTransmissionSystem(),
       ],

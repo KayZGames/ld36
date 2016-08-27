@@ -175,6 +175,7 @@
             <filename>track01.png</filename>
             <filename>chariot.png</filename>
             <filename>arrow.png</filename>
+            <filename>blood.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

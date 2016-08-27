@@ -43,9 +43,10 @@ class InputHandlingSystem extends GenericInputHandlingSystem {
       world.createAndAddEntity([
         new Position(p.xyz.x, p.xyz.y),
         new Orientation(o.angle),
-        new Velocity(250 * cos(o.angle), 250 * sin(o.angle)),
+        new Velocity(350 * cos(o.angle), 350 * sin(o.angle)),
         new Arrow(),
-        new SpriteName('arrow')
+        new SpriteName('arrow'),
+        new Lifetime(2.5)
       ]);
     }
     c.arrowCooldown -= world.delta;

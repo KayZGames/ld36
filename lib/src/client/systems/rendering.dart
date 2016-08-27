@@ -55,8 +55,8 @@ class PositionRenderingSystem extends EntityProcessingSystem {
           sprite.dst.width,
           sprite.dst.height);
 
-    ctx.strokeStyle = 'red';
-    ctx.strokeRect(-sprite.dst.width/3, -sprite.dst.height/2, sprite.dst.width, sprite.dst.height);
+//    ctx.strokeStyle = 'red';
+//    ctx.strokeRect(-sprite.dst.width/3, -sprite.dst.height/2, sprite.dst.width, sprite.dst.height);
     ctx.restore();
   }
 }
