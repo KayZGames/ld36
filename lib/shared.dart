@@ -10,3 +10,5 @@ part 'src/shared/managers.dart';
 
 
 const String playerTag = 'player';
+const double startX = 540.0;
+const double startY = 190.0;

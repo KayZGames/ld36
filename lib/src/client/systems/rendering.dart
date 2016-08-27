@@ -11,21 +11,35 @@ class PositionRenderingSystem extends EntityProcessingSystem {
 
   final int size = 20;
 
+  double offsetX;
+  double offsetY;
+
   PositionRenderingSystem(this.ctx)
       : super(Aspect.getAspectForAllOf([Position, Orientation]));
+
+  @override
+  void begin() {
+    var player = tm.getEntity(playerTag);
+    if (player == null) {
+      offsetX = startX;
+      offsetY = startY;
+    } else {
+      var pp = pm[player];
+      offsetX = pp.xyz.x;
+      offsetY = pp.xyz.y;
+    }
+  }
 
   @override
   void processEntity(Entity entity) {
     var p = pm[entity];
     var o = om[entity];
-    var player = tm.getEntity(playerTag);
-    var pp = pm[player];
 
     ctx
       ..save()
       ..fillStyle = 'red'
-      ..translate(gsm.width / 2 - pp.xyz.x - size / 2 + p.xyz.x,
-          gsm.height / 2 - pp.xyz.y - size / 2 + p.xyz.y)
+      ..translate(gsm.width / 2 - offsetX - size / 2 + p.xyz.x,
+          gsm.height / 2 - offsetY - size / 2 + p.xyz.y)
       ..arc(0, 0, size / 2, 0, 2 * PI)
       ..fill()
       ..strokeStyle = 'blue'
@@ -105,8 +119,8 @@ class TrackRenderingSystem extends VoidEntitySystem {
       offsetX += -p.xyz.x;
       offsetY += -p.xyz.y;
     } else {
-      offsetX += 550.0;
-      offsetY += 190.0;
+      offsetX -= startX;
+      offsetY -= startY;
     }
 
     var t = sheet['track01'];

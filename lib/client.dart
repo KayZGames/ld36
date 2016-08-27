@@ -40,8 +40,8 @@ class Game extends GameBase {
   }
 
   void spawnPlayer() {
-    var x = 540.0;
-    var y = 190.0;
+    var x = startX;
+    var y = startY;
     var player = addEntity([
       new Position(x, y),
       new Acceleration(),

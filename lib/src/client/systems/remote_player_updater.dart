@@ -7,36 +7,52 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
 
   WebSocket webSocket;
 
-  Set<int> newPlayers = new Set();
+  List<int> playersToRemove = new List<int>();
   Set<int> knownPlayers = new Set();
 
   RemotePlayerUpdater(this.webSocket)
-  : super(Aspect.getAspectForAllOf([Position, Orientation, Controller]));
+      : super(Aspect.getAspectForAllOf([Position, Orientation, Controller]));
 
   @override
   void initialize() {
     webSocket.onMessage.listen((event) {
       var data = JSON.decode(event.data);
       if (data['content'] != null) {
-        var content = JSON.decode(data['content']);
+        var content = data['content'];
         var senderId = data['id'];
-        if (knownPlayers.contains(senderId)) {
-          var entity = tm.getEntity('$playerTag$senderId');
-          var p = pm[entity];
-          var o = om[entity];
-          p.xyz.x = content['x'];
-          p.xyz.y = content['y'];
-          o.angle = content['angle'];
+        if (content == 'removeClient') {
+          knownPlayers.remove(senderId);
+          playersToRemove.add(senderId);
         } else {
-          if (!knownPlayers.contains(senderId) && content['type'] == 'playerdata') {
-            var entity = world
-                .createAndAddEntity([new Position(content['x'], content['y']), new Orientation(content['angle'])]);
-            knownPlayers.add(senderId);
-            tm.register(entity, '$playerTag$senderId');
-          }
+          try {
+            handleJsonContent(content, senderId);
+          } catch (_) {}
         }
       }
     });
+  }
+
+  void handleJsonContent(String json, int senderId) {
+    var content = JSON.decode(json);
+    if (content['type'] == 'playerdata') {
+      if (knownPlayers.contains(senderId)) {
+        var entity = tm.getEntity('$playerTag$senderId');
+        var p = pm[entity];
+        var o = om[entity];
+        p.xyz.x = content['x'];
+        p.xyz.y = content['y'];
+        o.angle = content['angle'];
+      } else {
+        if (!knownPlayers.contains(senderId)) {
+          var entity = world.createAndAddEntity([
+            new Position(content['x'], content['y']),
+            new Orientation(content['angle'])
+          ]);
+          knownPlayers.add(senderId);
+          tm.register(entity, '$playerTag$senderId');
+        }
+      }
+    }
   }
 
   @override
@@ -44,8 +60,15 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
     var p = pm[entity];
     var o = om[entity];
 
-    webSocket.send(JSON.encode({'type': 'playerdata', 'x': p.xyz.x, 'y': p.xyz.y, 'angle': o.angle}));
+    webSocket.send(JSON.encode(
+        {'type': 'playerdata', 'x': p.xyz.x, 'y': p.xyz.y, 'angle': o.angle}));
 
-    print('seding ${p.xyz}');
+    playersToRemove
+        .map((playerId) => tm.getEntity('$playerTag$playerId'))
+        .where((entity) => entity != null)
+        .forEach((entity) {
+      entity.deleteFromWorld();
+    });
+    playersToRemove.clear();
   }
 }
