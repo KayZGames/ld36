@@ -10,6 +10,7 @@ export 'package:gamedev_helpers/gamedev_helpers.dart';
 //part 'src/client/systems/name.dart';
 part 'src/client/systems/events.dart';
 part 'src/client/systems/rendering.dart';
+part 'src/client/systems/remote_player_spawner.dart';
 
 class Game extends GameBase {
   CanvasElement hudCanvas;
@@ -25,6 +26,7 @@ class Game extends GameBase {
       ..font = '30px Verdana';
 
     world.addManager(new GameStateManager());
+    world.addManager(new TagManager());
 
     handleResize(window.innerWidth, window.innerHeight);
     window.onResize
@@ -33,17 +35,27 @@ class Game extends GameBase {
 
   @override
   void createEntities() {
-    // addEntity([Component1, Component2]);
+//    addEntity([new Position(0.0, 0.0), new Controller()]);
+  }
+
+  void spawnPlayer() {
+    var x = random.nextDouble() * 200.0;
+    var y = random.nextDouble() * 200.0;
+    addEntity([new Position(x, y), new Controller()]);
+    webSocket.send(JSON.encode({'type':'addPlayer','x':x,'y':y}));
   }
 
   @override
   Map<int, List<EntitySystem>> getSystems() {
     return {
       GameBase.rendering: [
+        new InputHandlingSystem(webSocket),
         new WebGlCanvasCleaningSystem(ctx),
         new CanvasCleaningSystem(hudCanvas),
 //        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
+        new PositionRenderingSystem(hudCtx),
         new ConnectedClientsRenderer(hudCtx, webSocket),
+        new RemotePlayerUpdater(webSocket),
       ],
       GameBase.physics: [
         // add at least one

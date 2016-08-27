@@ -6,7 +6,7 @@ int gamepadIndex;
 WebSocket webSocket;
 
 Future<Null> main() async {
-  webSocket = new WebSocket('ws://127.0.0.1:8081/ws/bc/ld36');
+  webSocket = new WebSocket('ws://192.168.178.35:8081/ws/bc/ld36');
 
   webSocket.onMessage.listen((event) {
     try {
@@ -60,6 +60,7 @@ Future<Null> startGame() async {
 
   await new Future.delayed(new Duration(seconds: 1));
   game.resume();
+  game.spawnPlayer();
   querySelector('#storyContainer').style.display = 'none';
   game.onGameOver().then((score) {
     game.stop();
