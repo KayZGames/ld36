@@ -6,7 +6,7 @@ int gamepadIndex;
 WebSocket webSocket;
 
 Future<Null> main() async {
-  webSocket = new WebSocket('ws://192.168.178.35:8081/ws/bc/ld36');
+  webSocket = new WebSocket('wss://192.168.178.35:8081/ws/bc/ld36');
 
   webSocket.onMessage.listen((event) {
     try {
