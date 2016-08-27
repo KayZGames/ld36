@@ -2,11 +2,11 @@
 
 "chariot":
 {
-	"frame": {"x":736,"y":2,"w":69,"h":29},
+	"frame": {"x":736,"y":2,"w":70,"h":29},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":69,"h":29},
-	"sourceSize": {"w":69,"h":29}
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":0,"w":70,"h":29},
+	"sourceSize": {"w":100,"h":29}
 },
 "track01":
 {
@@ -23,6 +23,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:68be82ff99cdcc484dc11e9cd7c3200f:28a45cfcf65da5722a725dadba1bafea:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:aea4f17f84f7c76f07075e0ad25d2b4c:5c918263feefd3b1544fe28b6e7b30fa:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
