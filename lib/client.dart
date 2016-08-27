@@ -18,7 +18,7 @@ class Game extends GameBase {
   int gamepadIndex;
   WebSocket webSocket;
 
-  Game(this.webSocket) : super.noAssets('ld36', '#game', 800, 600, webgl: true) {
+  Game(this.webSocket) : super('ld36', '#game', 800, 600, webgl: true, bodyDefsName: null) {
     hudCanvas = querySelector('#hud');
     hudCtx = hudCanvas.context2D;
     hudCtx
@@ -41,7 +41,9 @@ class Game extends GameBase {
   void spawnPlayer() {
     var x = random.nextDouble() * 200.0;
     var y = random.nextDouble() * 200.0;
-    addEntity([new Position(x, y), new Controller()]);
+    var player = addEntity([new Position(x, y), new Controller()]);
+    var tm = world.getManager(TagManager) as TagManager;
+    tm.register(player, playerTag);
     webSocket.send(JSON.encode({'type':'addPlayer','x':x,'y':y}));
   }
 
@@ -51,7 +53,8 @@ class Game extends GameBase {
       GameBase.rendering: [
         new InputHandlingSystem(webSocket),
         new WebGlCanvasCleaningSystem(ctx),
-        new CanvasCleaningSystem(hudCanvas),
+        new CanvasCleaningSystem(hudCanvas, fillStyle: '#4b692f'),
+        new TrackRenderingSystem(hudCtx, spriteSheet),
 //        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
         new PositionRenderingSystem(hudCtx),
         new ConnectedClientsRenderer(hudCtx, webSocket),
