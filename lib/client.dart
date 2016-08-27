@@ -10,7 +10,7 @@ export 'package:gamedev_helpers/gamedev_helpers.dart';
 //part 'src/client/systems/name.dart';
 part 'src/client/systems/events.dart';
 part 'src/client/systems/rendering.dart';
-part 'src/client/systems/remote_player_spawner.dart';
+part 'src/client/systems/remote_player_updater.dart';
 
 class Game extends GameBase {
   CanvasElement hudCanvas;
@@ -18,7 +18,8 @@ class Game extends GameBase {
   int gamepadIndex;
   WebSocket webSocket;
 
-  Game(this.webSocket) : super('ld36', '#game', 800, 600, webgl: true, bodyDefsName: null) {
+  Game(this.webSocket)
+      : super('ld36', '#game', 800, 600, webgl: true, bodyDefsName: null) {
     hudCanvas = querySelector('#hud');
     hudCtx = hudCanvas.context2D;
     hudCtx
@@ -39,12 +40,19 @@ class Game extends GameBase {
   }
 
   void spawnPlayer() {
-    var x = random.nextDouble() * 200.0;
-    var y = random.nextDouble() * 200.0;
-    var player = addEntity([new Position(x, y), new Controller()]);
+    var x = 540.0;
+    var y = 190.0;
+    var player = addEntity([
+      new Position(x, y),
+      new Acceleration(),
+      new Brake(),
+      new Velocity(),
+      new Orientation(0.0),
+      new Controller()
+    ]);
     var tm = world.getManager(TagManager) as TagManager;
     tm.register(player, playerTag);
-    webSocket.send(JSON.encode({'type':'addPlayer','x':x,'y':y}));
+    webSocket.send(JSON.encode({'type': 'addPlayer', 'x': x, 'y': y}));
   }
 
   @override
@@ -52,6 +60,9 @@ class Game extends GameBase {
     return {
       GameBase.rendering: [
         new InputHandlingSystem(webSocket),
+        new AccelerationSystem(),
+        new BrakeSystem(),
+        new MovementSystem(),
         new WebGlCanvasCleaningSystem(ctx),
         new CanvasCleaningSystem(hudCanvas, fillStyle: '#4b692f'),
         new TrackRenderingSystem(hudCtx, spriteSheet),
@@ -66,8 +77,6 @@ class Game extends GameBase {
     };
   }
 
-
-
   @override
   void handleResize(int width, int height) {
     width = max(800, width);
@@ -79,7 +88,6 @@ class Game extends GameBase {
       ..width = width
       ..height = height;
   }
-
 
   void resizeCanvas(CanvasElement canvas, int width, int height) {
     canvas.width = width;
@@ -93,4 +101,3 @@ class Game extends GameBase {
     return gsm.onGameOver();
   }
 }
-

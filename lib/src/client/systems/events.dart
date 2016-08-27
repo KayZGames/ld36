@@ -1,28 +1,37 @@
 part of client;
 
-
 class InputHandlingSystem extends GenericInputHandlingSystem {
   Mapper<Position> pm;
+  Mapper<Orientation> om;
+  Mapper<Acceleration> am;
+  Mapper<Brake> bm;
 
   WebSocket webSocket;
 
-  InputHandlingSystem(this.webSocket) : super(Aspect.getAspectForAllOf([Controller, Position]));
-
+  InputHandlingSystem(this.webSocket)
+      : super(Aspect.getAspectForAllOf(
+            [Controller, Position, Orientation, Acceleration, Brake]));
 
   @override
   void processEntity(Entity entity) {
-    var p = pm[entity];
+    var o = om[entity];
+    var a = am[entity];
+    var b = bm[entity];
     if (left) {
-      p.xyz.x -= 1.0;
+      o.angle -= o.turnRate;
     } else if (right) {
-      p.xyz.x += 1.0;
+      o.angle += o.turnRate;
     }
     if (up) {
-      p.xyz.y -= 1.0;
+      a.value = a.maxAcceleration;
+      b.value = 1.0;
     } else if (down) {
-      p.xyz.y += 1.0;
+      b.value = b.brakeForce;
+      a.value = 0.0;
+    } else {
+      b.value = 1.0;
+      a.value = 0.0;
     }
-    webSocket.send(JSON.encode({'type':'pos','x':p.xyz.x,'y':p.xyz.y}));
+//    webSocket.send(JSON.encode({'type':'pos','x':p.xyz.x,'y':p.xyz.y}));
   }
 }
-
