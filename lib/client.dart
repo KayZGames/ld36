@@ -64,7 +64,7 @@ class Game extends GameBase {
         new BrakeSystem(),
         new MovementSystem(),
         new WebGlCanvasCleaningSystem(ctx),
-        new CanvasCleaningSystem(hudCanvas, fillStyle: '#4b692f'),
+        new CanvasCleaningSystem(hudCanvas),
         new TrackRenderingSystem(hudCtx, spriteSheet),
 //        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
         new PositionRenderingSystem(hudCtx),

@@ -127,8 +127,18 @@ class TrackRenderingSystem extends VoidEntitySystem {
     ctx
       ..save()
       ..translate(offsetX, offsetY)
-      ..drawImageScaledFromSource(sheet.image, t.src.left, t.src.top,
-          t.src.width, t.src.height, 0, 0, t.dst.width, t.dst.height)
+      ..fillStyle = '#4b692f'
+      ..fillRect(-offsetX, -offsetY, gsm.width, gsm.height)
+      ..drawImageScaledFromSource(
+          sheet.image,
+          t.src.left,
+          t.src.top,
+          t.src.width,
+          t.src.height,
+          t.dst.left,
+          t.dst.top,
+          t.src.width,
+          t.src.height)
       ..restore();
   }
 }

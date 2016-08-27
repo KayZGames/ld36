@@ -2,10 +2,10 @@
 
 "track01":
 {
-	"frame": {"x":2,"y":2,"w":1024,"h":1024},
+	"frame": {"x":2,"y":2,"w":732,"h":672},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":1024},
+	"trimmed": true,
+	"spriteSourceSize": {"x":154,"y":136,"w":732,"h":672},
 	"sourceSize": {"w":1024,"h":1024}
 }},
 "meta": {
@@ -13,8 +13,8 @@
 	"version": "1.0",
 	"image": "assets.png",
 	"format": "RGBA8888",
-	"size": {"w":2048,"h":2048},
+	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1957f0381261b711b4a6645b8a0fc2f2:3204f7d279d1fbece14997608708a94f:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:91493ce01be86b9ce3531baf19c606db:5582c106cfccedd71cd553cb310f98cd:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
