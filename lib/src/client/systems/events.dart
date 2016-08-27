@@ -1,7 +1,6 @@
 part of client;
 
 class InputHandlingSystem extends GenericInputHandlingSystem {
-  Mapper<Position> pm;
   Mapper<Orientation> om;
   Mapper<Acceleration> am;
   Mapper<Brake> bm;
@@ -32,6 +31,5 @@ class InputHandlingSystem extends GenericInputHandlingSystem {
       b.value = 1.0;
       a.value = 0.0;
     }
-//    webSocket.send(JSON.encode({'type':'pos','x':p.xyz.x,'y':p.xyz.y}));
   }
 }

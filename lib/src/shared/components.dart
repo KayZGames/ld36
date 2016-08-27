@@ -10,7 +10,7 @@ class Controller extends Component {}
 
 class Orientation extends Component {
   double angle;
-  double turnRate = PI / 36;
+  double turnRate = PI / 72;
   Orientation(this.angle);
 }
 
