@@ -5120,7 +5120,7 @@ gn:function(a){return this.a[0]},
 gp:function(a){return this.a[1]}}}],["","",,K,{"^":"",
 eH:[function(){var z=0,y=new P.c1(),x=1,w,v
 var $async$eH=P.cA(function(a,b){if(a===1){w=b
-z=x}while(true)switch(z){case 0:v=W.ir("ws://192.168.178.35:8081/ws/bc/ld36",null)
+z=x}while(true)switch(z){case 0:v=W.ir("wss://192.168.178.35:8081/ws/bc/ld36",null)
 $.bQ=v
 v=H.a(new W.ae(v,"message",!1),[H.m(C.m,0)])
 H.a(new W.T(0,v.a,v.b,W.C(new K.kI()),!1),[H.m(v,0)]).I()
