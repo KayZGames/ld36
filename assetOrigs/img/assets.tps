@@ -173,6 +173,7 @@
         <key>fileList</key>
         <array>
             <filename>track01.png</filename>
+            <filename>chariot.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

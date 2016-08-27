@@ -67,7 +67,7 @@ class Game extends GameBase {
         new CanvasCleaningSystem(hudCanvas),
         new TrackRenderingSystem(hudCtx, spriteSheet),
 //        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
-        new PositionRenderingSystem(hudCtx),
+        new PositionRenderingSystem(hudCtx, spriteSheet),
         new ConnectedClientsRenderer(hudCtx, webSocket),
         new RemotePlayerUpdater(webSocket),
       ],

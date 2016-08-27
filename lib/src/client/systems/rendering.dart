@@ -8,13 +8,14 @@ class PositionRenderingSystem extends EntityProcessingSystem {
   Mapper<Orientation> om;
 
   CanvasRenderingContext2D ctx;
+  SpriteSheet sheet;
 
   final int size = 20;
 
   double offsetX;
   double offsetY;
 
-  PositionRenderingSystem(this.ctx)
+  PositionRenderingSystem(this.ctx, this.sheet)
       : super(Aspect.getAspectForAllOf([Position, Orientation]));
 
   @override
@@ -34,21 +35,24 @@ class PositionRenderingSystem extends EntityProcessingSystem {
   void processEntity(Entity entity) {
     var p = pm[entity];
     var o = om[entity];
+    var sprite = sheet['chariot'];
 
     ctx
       ..save()
       ..fillStyle = 'red'
       ..translate(gsm.width / 2 - offsetX - size / 2 + p.xyz.x,
           gsm.height / 2 - offsetY - size / 2 + p.xyz.y)
-      ..arc(0, 0, size / 2, 0, 2 * PI)
-      ..fill()
-      ..strokeStyle = 'blue'
-      ..lineWidth = 2
-      ..beginPath()
-      ..moveTo(0, 0)
-      ..lineTo(cos(o.angle) * size / 2, sin(o.angle) * size / 2)
-      ..closePath()
-      ..stroke();
+      ..rotate(o.angle)
+      ..drawImageScaledFromSource(
+          sheet.image,
+          sprite.src.left,
+          sprite.src.top,
+          sprite.src.width,
+          sprite.src.height,
+          sprite.dst.left,
+          sprite.dst.top,
+          sprite.dst.width,
+          sprite.dst.height);
     ctx.restore();
   }
 }
