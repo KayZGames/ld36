@@ -1,28 +1,42 @@
+import 'dart:convert';
 import 'package:ld36/client.dart';
 
 Game game;
 int gamepadIndex;
+WebSocket webSocket;
 
 Future<Null> main() async {
-  game = await new Game().start();
-  game.stop();
-  querySelector('#loading').style.display = 'none';
-  (querySelector('#startGame') as ButtonElement)
-    ..style.display = 'inline-block';
-  querySelector('#startGame').onClick.listen((_) {
-    if (game.isStopped) {
-      startGame();
-    }
+  webSocket = new WebSocket('ws://127.0.0.1:8081/ws/bc/ld36');
+
+  webSocket.onMessage.listen((event) {
+    try {
+      var data = JSON.decode(event.data);
+      if (data['type'] == 'clientCount') {
+        querySelector('#playersOnline').text = 'Players online: ${data['message']}';
+      }
+    } catch (e) {}
   });
-  querySelector('body').onKeyDown.listen((event) {
-    if (game.isStopped && event.keyCode == KeyCode.ENTER) {
-      startGame();
-    }
+  webSocket.onOpen.listen((event) async {
+    game = await new Game(webSocket).start();
+    game.stop();
+    querySelector('#loading').style.display = 'none';
+    (querySelector('#startGame') as ButtonElement)
+      ..style.display = 'inline-block';
+    querySelector('#startGame').onClick.listen((_) {
+      if (game.isStopped) {
+        startGame();
+      }
+    });
+    querySelector('body').onKeyDown.listen((event) {
+      if (game.isStopped && event.keyCode == KeyCode.ENTER) {
+        startGame();
+      }
+    });
+    window.on['gamepadconnected'].listen((GamepadEvent event) {
+      gamepadIndex = event.gamepad.index;
+    });
+    window.requestAnimationFrame(handleGamepads);
   });
-  window.on['gamepadconnected'].listen((GamepadEvent event) {
-    gamepadIndex = event.gamepad.index;
-  });
-  window.requestAnimationFrame(handleGamepads);
 }
 
 void handleGamepads(_) {
@@ -36,7 +50,7 @@ void handleGamepads(_) {
 }
 
 Future<Null> startGame() async {
-  game = await new Game().start();
+  game = await new Game(webSocket).start();
   game.gamepadIndex = gamepadIndex;
   game.pause();
   querySelector('#storyContainer').style..opacity = '0.0';

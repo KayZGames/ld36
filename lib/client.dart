@@ -1,5 +1,6 @@
 library client;
 
+import 'dart:convert';
 import 'dart:web_gl';
 import 'dart:html';
 export 'dart:html';
@@ -14,13 +15,14 @@ class Game extends GameBase {
   CanvasElement hudCanvas;
   CanvasRenderingContext2D hudCtx;
   int gamepadIndex;
+  WebSocket webSocket;
 
-  Game() : super.noAssets('ld36', '#game', 800, 600, webgl: true) {
+  Game(this.webSocket) : super.noAssets('ld36', '#game', 800, 600, webgl: true) {
     hudCanvas = querySelector('#hud');
     hudCtx = hudCanvas.context2D;
     hudCtx
       ..textBaseline = 'top'
-      ..font = '16px Verdana';
+      ..font = '30px Verdana';
 
     world.addManager(new GameStateManager());
 
@@ -28,15 +30,20 @@ class Game extends GameBase {
     window.onResize
         .listen((_) => handleResize(window.innerWidth, window.innerHeight));
   }
+
+  @override
   void createEntities() {
     // addEntity([Component1, Component2]);
   }
+
+  @override
   Map<int, List<EntitySystem>> getSystems() {
     return {
       GameBase.rendering: [
         new WebGlCanvasCleaningSystem(ctx),
         new CanvasCleaningSystem(hudCanvas),
-        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
+//        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
+        new ConnectedClientsRenderer(hudCtx, webSocket),
       ],
       GameBase.physics: [
         // add at least one
