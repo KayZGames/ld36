@@ -81,8 +81,10 @@ class LocalArrowRemoteHitDetectionSystem extends EntityProcessingSystem {
 
 class RemoteArrowLocalHitDetectionSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
-
+  Mapper<Health> hm;
+  Mapper<Orientation> om;
   TagManager tm;
+  GameStateManager gsm;
   RemoteArrowLocalHitDetectionSystem()
       : super(Aspect.getAspectForAllOf([Position, Arrow, Remote]));
 
@@ -102,8 +104,27 @@ class RemoteArrowLocalHitDetectionSystem extends EntityProcessingSystem {
         new Background()
       ]);
       entity.deleteFromWorld();
+      var health = hm[player];
+      health.value--;
+      if (health.value <= 0) {
+        gsm.gameOver(0);
+        player.deleteFromWorld();
+        world.createAndAddEntity([
+          new SpriteName('corpse'),
+          new Position(p.xyz.x, p.xyz.y),
+          new Orientation(om[player].angle),
+          new Lifetime(30.0),
+          new Background(),
+          new Corpse()
+        ]);
+      }
     }
   }
+
+  @override
+  bool checkProcessing() => tm.getEntity(playerTag) != null;
+
+
 }
 
 class RemoteArrowRemoteHitDetectionSystem extends EntityProcessingSystem {

@@ -167,7 +167,7 @@ class ArenaBorderRenderingSystem extends VoidEntitySystem {
       ..strokeStyle = 'darkgrey'
       ..lineWidth = 5
       ..beginPath()
-      ..arc(0, 0, gsm.arenaRadius, 0, 2 * PI)
+      ..arc(0, 0, max(500, gsm.arenaRadius), 0, 2 * PI)
       ..closePath()
       ..stroke()
       ..restore();

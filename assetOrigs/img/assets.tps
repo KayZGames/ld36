@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.3.4</string>
         <key>fileName</key>
-        <string>C:/Programming/workspaces/dart/ld36/assetOrigs/img/assets.tps</string>
+        <string>F:/Programming/workspaces/dart/ld36/assetOrigs/img/assets.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -176,6 +176,7 @@
             <filename>chariot.png</filename>
             <filename>arrow.png</filename>
             <filename>blood.png</filename>
+            <filename>corpse.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

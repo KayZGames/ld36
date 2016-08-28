@@ -72,6 +72,18 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
         new Lifetime(2.5)
       ]);
       gm.add(entity, remoteArrowGroup);
+    } else if (content['type'] == 'corpse') {
+      world.createAndAddEntity([
+        new SpriteName('corpse'),
+        new Position(content['x'], content['y']),
+        new Orientation(content['angle']),
+        new Lifetime(30.0),
+        new Background(),
+        new Corpse(),
+        new Remote(senderId)
+      ]);
+      playersToRemove.add(senderId);
+      knownPlayers.remove(senderId);
     }
   }
 
@@ -98,7 +110,7 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
 }
 
 class SingleTransmissionSystem extends EntityProcessingSystem {
-  SingleTransmissionSystem() : super(Aspect.getAspectForAllOf([Arrow]));
+  SingleTransmissionSystem() : super(Aspect.getAspectForOneOf([Arrow, Corpse]));
 
   @override
   void processEntity(Entity entity) {

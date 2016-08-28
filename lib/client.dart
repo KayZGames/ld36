@@ -52,10 +52,15 @@ class Game extends GameBase {
       new Controller(),
       new SpriteName('chariot'),
       new Player(),
+      new Health(5),
     ]);
     var tm = world.getManager(TagManager) as TagManager;
     tm.register(player, playerTag);
-    webSocket.send(JSON.encode({'type': 'addPlayer', 'x': x, 'y': y}));
+  }
+
+  bool isPlayerAlive() {
+    var tm = world.getManager(TagManager) as TagManager;
+    return tm.getEntity(playerTag) != null;
   }
 
   @override

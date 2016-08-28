@@ -55,3 +55,10 @@ class Lifetime extends Component {
 class Player extends Component {}
 
 class Background extends Component {}
+
+class Health extends Component {
+  int value;
+  Health(this.value);
+}
+
+class Corpse extends Component {}
