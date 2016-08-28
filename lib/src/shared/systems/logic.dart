@@ -95,3 +95,34 @@ class LifetimeExpirationSystem extends EntityProcessingSystem {
     }
   }
 }
+
+class ArenaSizeCalculatingSystem extends EntitySystem {
+  GameStateManager gsm;
+
+  ArenaSizeCalculatingSystem() : super(Aspect.getAspectForAllOf([Player]));
+
+  @override
+  void processEntities(Iterable<Entity> entities) {
+    var targetRadius = sqrt(entities.length) * 500.0;
+
+    gsm.arenaRadius = (1.0 - world.delta) * gsm.arenaRadius + world.delta * targetRadius;
+  }
+
+  @override
+  bool checkProcessing() => true;
+}
+
+class InBorderKeepingSystem extends EntityProcessingSystem {
+  Mapper<Position> pm;
+  GameStateManager gsm;
+  InBorderKeepingSystem() : super(Aspect.getAspectForAllOf([Position]));
+
+  @override
+  void processEntity(Entity entity) {
+    var p = pm[entity];
+
+    if (gsm.arenaRadius < p.xyz.length) {
+      p.xyz = p.xyz.normalized() * gsm.arenaRadius;
+    }
+  }
+}

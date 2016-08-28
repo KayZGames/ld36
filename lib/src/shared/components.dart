@@ -18,7 +18,7 @@ class Orientation extends Component {
 
 class Acceleration extends Component {
   double value;
-  double maxAcceleration = 200.0;
+  double maxAcceleration = 400.0;
   Acceleration() : this.value = 0.0;
 }
 
@@ -39,6 +39,7 @@ class Remote extends Component {
   int id;
   Remote(this.id);
 }
+
 class NoTransmission extends Component {}
 
 class SpriteName extends Component {
@@ -50,3 +51,5 @@ class Lifetime extends Component {
   double value;
   Lifetime(this.value);
 }
+
+class Player extends Component {}

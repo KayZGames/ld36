@@ -53,6 +53,7 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
             new Orientation(content['angle']),
             new SpriteName('chariot'),
             new Remote(senderId),
+            new Player(),
           ]);
           knownPlayers.add(senderId);
           tm.register(entity, '$playerTag$senderId');

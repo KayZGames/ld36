@@ -51,6 +51,7 @@ class Game extends GameBase {
       new Orientation(0.0),
       new Controller(),
       new SpriteName('chariot'),
+      new Player(),
     ]);
     var tm = world.getManager(TagManager) as TagManager;
     tm.register(player, playerTag);
@@ -62,16 +63,21 @@ class Game extends GameBase {
     return {
       GameBase.rendering: [
         new InputHandlingSystem(webSocket),
+        new ArenaSizeCalculatingSystem(),
         new AccelerationSystem(),
         new BrakeSystem(),
         new MovementSystem(),
+        new InBorderKeepingSystem(),
         new WebGlCanvasCleaningSystem(ctx),
         new CanvasCleaningSystem(hudCanvas),
-        new TrackRenderingSystem(hudCtx, spriteSheet),
+        new CameraPositioningSystem(hudCtx),
+        new ArenaRenderingSystem(hudCtx, spriteSheet),
+        new ArenaBorderRenderingSystem(hudCtx),
 //        new FpsRenderingSystem(hudCtx, fillStyle: 'white'),
         new PositionRenderingSystem(hudCtx, spriteSheet),
-        new ConnectedClientsRenderer(hudCtx, webSocket),
         new ArrowHitDetectionSystem(),
+        new CameraPositionResetSystem(hudCtx),
+        new ConnectedClientsRenderer(hudCtx, webSocket),
         new LifetimeExpirationSystem(),
         new RemotePlayerUpdater(webSocket),
         new SingleTransmissionSystem(),
