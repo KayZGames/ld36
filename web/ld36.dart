@@ -6,7 +6,7 @@ int gamepadIndex;
 WebSocket webSocket;
 
 Future<Null> main() async {
-  webSocket = new WebSocket('wss://isowosi.com/ws/bc/ld36-preview');
+  webSocket = new WebSocket('wss://isowosi.com/ws/bc/ld36');
 
   webSocket.onMessage.listen((event) {
     try {
