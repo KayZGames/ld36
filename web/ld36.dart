@@ -64,8 +64,8 @@ Future<Null> startGame() async {
       ..opacity = '1.0'
       ..display = 'flex'
       ..cursor = 'inherit';
-    querySelector('#game').style.opacity = '0.1';
-    querySelector('#hud').style.opacity = '0.1';
+    querySelector('#game').style.opacity = '0.5';
+    querySelector('#hud').style.opacity = '0.5';
     querySelector('body').style.cursor = 'inherit';
   });
 }
