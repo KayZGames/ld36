@@ -64,7 +64,7 @@ class LocalArrowRemoteHitDetectionSystem extends EntityProcessingSystem {
 
       var ap = pm[entity];
 
-      if ((ap.xyz - p.xyz).length < 20) {
+      if ((ap.xyz - p.xyz).length < 25) {
         world.createAndAddEntity([
           new SpriteName('blood'),
           new Position(ap.xyz.x, ap.xyz.y),
@@ -95,7 +95,7 @@ class RemoteArrowLocalHitDetectionSystem extends EntityProcessingSystem {
 
     var ap = pm[entity];
 
-    if ((ap.xyz - p.xyz).length < 20) {
+    if ((ap.xyz - p.xyz).length < 25) {
       world.createAndAddEntity([
         new SpriteName('blood'),
         new Position(ap.xyz.x, ap.xyz.y),
@@ -148,7 +148,7 @@ class RemoteArrowRemoteHitDetectionSystem extends EntityProcessingSystem {
 
       var ap = pm[entity];
 
-      if ((ap.xyz - p.xyz).length < 20) {
+      if ((ap.xyz - p.xyz).length < 25) {
         world.createAndAddEntity([
           new SpriteName('blood'),
           new Position(ap.xyz.x, ap.xyz.y),
