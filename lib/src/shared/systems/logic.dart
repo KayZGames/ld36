@@ -185,6 +185,7 @@ class ArenaSizeCalculatingSystem extends EntitySystem {
   @override
   void processEntities(Iterable<Entity> entities) {
     var targetRadius = sqrt(entities.length) * 500.0;
+    gsm.playerCount = entities.length;
 
     gsm.arenaRadius =
         (1.0 - world.delta) * gsm.arenaRadius + world.delta * targetRadius;

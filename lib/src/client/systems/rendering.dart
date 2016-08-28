@@ -83,7 +83,7 @@ class ConnectedClientsRenderer extends VoidEntitySystem {
   GameStateManager gsm;
   CanvasRenderingContext2D ctx;
   WebSocket webSocket;
-  final String playersOnline = 'Players online:';
+  final String playersOnline = 'Players ingame:';
   TextMetrics playersOnlineSize;
 
   ConnectedClientsRenderer(this.ctx, this.webSocket);
@@ -106,15 +106,6 @@ class ConnectedClientsRenderer extends VoidEntitySystem {
   @override
   void initialize() {
     super.initialize();
-    webSocket.onMessage.listen((event) {
-      try {
-        var data = JSON.decode(event.data);
-        if (data['type'] == 'clientCount') {
-          gsm.playerCount = int.parse(data['message']);
-        }
-      } catch (e) {}
-    });
-    webSocket.send('count');
     ctx
       ..save()
       ..font = '16px Verdana'
