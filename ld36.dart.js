@@ -6159,7 +6159,7 @@ gu:function(a){return this.a[0]},
 gv:function(a){return this.a[1]}}}],["","",,K,{"^":"",
 fu:[function(){var z=0,y=new P.cG(),x=1,w,v
 var $async$fu=P.de(function(a,b){if(a===1){w=b
-z=x}while(true)switch(z){case 0:v=W.jy("wss://isowosi.com/ws/bc/ld36-preview",null)
+z=x}while(true)switch(z){case 0:v=W.jy("wss://isowosi.com/ws/bc/ld36",null)
 $.cu=v
 v=H.a(new W.ak(v,"message",!1),[W.el])
 H.a(new W.Z(0,v.a,v.b,W.I(new K.lT()),!1),[H.v(v,0)]).R()
