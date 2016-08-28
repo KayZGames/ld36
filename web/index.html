@@ -1,24 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>ld36</title>
-    <link type="text/css" rel="stylesheet" href="ld36.css">
+  <meta charset="utf-8">
+  <title>ld36</title>
+  <link type="text/css" rel="stylesheet" href="ld36.css">
 </head>
 <body>
 <div id='gamecontainer'>
-    <canvas id='game' width='100%' height='100%'></canvas>
-    <canvas id='hud' width='100%' height='100%'></canvas>
-    <div id='storyContainer'>
-        <div id='story'>
-            <div id='playersOnline'></div>
-            <div id='loading'>
-                <div class='text'>Fetching resources, please wait...</div>
-                <div class='spinner'></div>
-            </div>
-            <button id='startGame' title='Join Game'>Join Game</button>
-        </div>
+  <canvas id='game' width='100%' height='100%'></canvas>
+  <canvas id='hud' width='100%' height='100%'></canvas>
+  <div id='storyContainer'>
+    <div id='story'>
+      <div>In this arena every chariot is on his own. Even the horses have turned invisble. Shoot your arrows to destoy
+        other chariots or be destroyed.
+      </div>
+      <div id='playersOnline'></div>
+      <div id='loading'>
+        <div class='text'>Fetching resources, please wait...</div>
+        <div class='spinner'></div>
+      </div>
+      <button id='startGame' title='Join Game'>Join Game</button>
+      <h2>Controls</h2>
+      <div id='controls'>
+        <p>
+        <table>
+          <thead>
+          <tr>
+            <th>Action</th>
+            <th>Keyboard</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Move</td>
+            <td>WASD or cursor keys</td>
+          </tr>
+          <tr>
+            <td>Shoot Arrow</td>
+            <td>X or J</td>
+          </tr>
+          </tbody>
+        </table>
+        </p>
+      </div>
     </div>
+  </div>
 </div>
 <script type="application/dart" src="ld36.dart"></script>
 <script src="packages/browser/dart.js"></script>
