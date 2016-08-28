@@ -14,7 +14,8 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
 
   RemotePlayerUpdater(this.webSocket)
       : super(Aspect
-            .getAspectForAllOf([Position, Orientation, SpriteName]).exclude([Remote, NoTransmission]));
+            .getAspectForAllOf([Position, Orientation, SpriteName]).exclude(
+                [Remote, NoTransmission]));
 
   @override
   void initialize() {
@@ -79,8 +80,8 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
     var o = om[entity];
     var s = sm[entity];
 
-    webSocket.send(JSON
-        .encode({'type': s.name, 'x': p.xyz.x, 'y': p.xyz.y, 'angle': o.angle}));
+    webSocket.send(JSON.encode(
+        {'type': s.name, 'x': p.xyz.x, 'y': p.xyz.y, 'angle': o.angle}));
   }
 
   @override
@@ -94,7 +95,6 @@ class RemotePlayerUpdater extends EntityProcessingSystem {
     playersToRemove.clear();
   }
 }
-
 
 class SingleTransmissionSystem extends EntityProcessingSystem {
   SingleTransmissionSystem() : super(Aspect.getAspectForAllOf([Arrow]));
