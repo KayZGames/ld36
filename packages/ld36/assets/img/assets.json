@@ -2,7 +2,7 @@
 
 "arrow":
 {
-	"frame": {"x":808,"y":2,"w":20,"h":5},
+	"frame": {"x":820,"y":2,"w":20,"h":5},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":5},
@@ -10,7 +10,7 @@
 },
 "blood":
 {
-	"frame": {"x":830,"y":2,"w":16,"h":18},
+	"frame": {"x":842,"y":2,"w":16,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":16,"h":18},
@@ -18,11 +18,19 @@
 },
 "chariot":
 {
-	"frame": {"x":736,"y":2,"w":70,"h":29},
+	"frame": {"x":786,"y":2,"w":32,"h":42},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":30,"y":0,"w":70,"h":29},
-	"sourceSize": {"w":100,"h":29}
+	"spriteSourceSize": {"x":79,"y":8,"w":32,"h":42},
+	"sourceSize": {"w":200,"h":58}
+},
+"corpse":
+{
+	"frame": {"x":736,"y":2,"w":48,"h":58},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":62,"y":0,"w":48,"h":58},
+	"sourceSize": {"w":200,"h":58}
 },
 "track01":
 {
@@ -39,6 +47,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e3ab31d4db0b5fc665b5b553d98750a7:b1e4cf49790512c78b7b7ea5ca9a1835:a759b6bbc8381ac9c472b28f589ad0d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:8e5029dc661c6b7f2d27f4a4efdbde26:e8250ac595511c8b1ef96d465a0f985c:a759b6bbc8381ac9c472b28f589ad0d6$"
 }
 }
