@@ -116,7 +116,7 @@ class Game extends GameBase {
     canvas.style.height = '${height}px';
   }
 
-  Future<int> onGameOver() {
+  Stream<int> onGameOver() {
     var gsm = world.getManager(GameStateManager) as GameStateManager;
     return gsm.onGameOver();
   }

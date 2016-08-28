@@ -49,7 +49,7 @@ void handleGamepads(_) {
 }
 
 Future<Null> startGame() async {
-  game = await new Game(webSocket).start();
+//  game = await new Game(webSocket).start();
   game.gamepadIndex = gamepadIndex;
   querySelector('#storyContainer').style..opacity = '0.0';
   querySelector('body').style.cursor = 'none';
@@ -59,7 +59,7 @@ Future<Null> startGame() async {
   await new Future.delayed(new Duration(seconds: 1));
   game.spawnPlayer();
   querySelector('#storyContainer').style.display = 'none';
-  game.onGameOver().then((score) {
+  game.onGameOver().listen((score) {
     querySelector('#storyContainer').style
       ..opacity = '1.0'
       ..display = 'flex'
