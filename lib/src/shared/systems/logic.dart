@@ -49,11 +49,11 @@ class MovementSystem extends EntityProcessingSystem {
   }
 }
 
-class LocalArrowHitDetectionSystem extends EntityProcessingSystem {
+class LocalArrowRemoteHitDetectionSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
 
   GroupManager gm;
-  LocalArrowHitDetectionSystem()
+  LocalArrowRemoteHitDetectionSystem()
       : super(Aspect.getAspectForAllOf([Position, Arrow]).exclude([Remote]));
 
   @override
@@ -79,11 +79,11 @@ class LocalArrowHitDetectionSystem extends EntityProcessingSystem {
   }
 }
 
-class RemoteArrowHitDetectionSystem extends EntityProcessingSystem {
+class RemoteArrowLocalHitDetectionSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
 
   TagManager tm;
-  RemoteArrowHitDetectionSystem()
+  RemoteArrowLocalHitDetectionSystem()
       : super(Aspect.getAspectForAllOf([Position, Arrow, Remote]));
 
   @override
@@ -102,6 +102,41 @@ class RemoteArrowHitDetectionSystem extends EntityProcessingSystem {
         new Background()
       ]);
       entity.deleteFromWorld();
+    }
+  }
+}
+
+class RemoteArrowRemoteHitDetectionSystem extends EntityProcessingSystem {
+  Mapper<Position> pm;
+  Mapper<Remote> rm;
+
+  GroupManager gm;
+  RemoteArrowRemoteHitDetectionSystem()
+      : super(Aspect.getAspectForAllOf([Position, Arrow, Remote]));
+
+  @override
+  void processEntity(Entity entity) {
+    var remotePlayers = gm.getEntities(remotePlayerGroup);
+    for (var remotePlayer in remotePlayers) {
+      var r = rm[remotePlayer];
+      var ra = rm[entity];
+      if (r.id == ra.id) {
+        continue;
+      }
+      var p = pm[remotePlayer];
+
+      var ap = pm[entity];
+
+      if ((ap.xyz - p.xyz).length < 20) {
+        world.createAndAddEntity([
+          new SpriteName('blood'),
+          new Position(ap.xyz.x, ap.xyz.y),
+          new Orientation(0.0),
+          new Lifetime(30.0),
+          new Background()
+        ]);
+        entity.deleteFromWorld();
+      }
     }
   }
 }
