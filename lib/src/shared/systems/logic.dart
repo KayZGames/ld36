@@ -49,21 +49,18 @@ class MovementSystem extends EntityProcessingSystem {
   }
 }
 
-class ArrowHitDetectionSystem extends EntityProcessingSystem {
+class LocalArrowHitDetectionSystem extends EntityProcessingSystem {
   Mapper<Position> pm;
-  Mapper<Orientation> om;
 
   GroupManager gm;
-  ArrowHitDetectionSystem()
-      : super(Aspect.getAspectForAllOf([Position, Orientation, Arrow]).exclude(
-            [Remote]));
+  LocalArrowHitDetectionSystem()
+      : super(Aspect.getAspectForAllOf([Position, Arrow]).exclude([Remote]));
 
   @override
   void processEntity(Entity entity) {
     var remotePlayers = gm.getEntities(remotePlayerGroup);
     for (var remotePlayer in remotePlayers) {
       var p = pm[remotePlayer];
-      var o = om[remotePlayer];
 
       var ap = pm[entity];
 
@@ -78,6 +75,33 @@ class ArrowHitDetectionSystem extends EntityProcessingSystem {
         entity.deleteFromWorld();
         break;
       }
+    }
+  }
+}
+
+class RemoteArrowHitDetectionSystem extends EntityProcessingSystem {
+  Mapper<Position> pm;
+
+  TagManager tm;
+  RemoteArrowHitDetectionSystem()
+      : super(Aspect.getAspectForAllOf([Position, Arrow, Remote]));
+
+  @override
+  void processEntity(Entity entity) {
+    var player = tm.getEntity(playerTag);
+    var p = pm[player];
+
+    var ap = pm[entity];
+
+    if ((ap.xyz - p.xyz).length < 20) {
+      world.createAndAddEntity([
+        new SpriteName('blood'),
+        new Position(ap.xyz.x, ap.xyz.y),
+        new Orientation(0.0),
+        new Lifetime(30.0),
+        new Background()
+      ]);
+      entity.deleteFromWorld();
     }
   }
 }
@@ -106,7 +130,8 @@ class ArenaSizeCalculatingSystem extends EntitySystem {
   void processEntities(Iterable<Entity> entities) {
     var targetRadius = sqrt(entities.length) * 500.0;
 
-    gsm.arenaRadius = (1.0 - world.delta) * gsm.arenaRadius + world.delta * targetRadius;
+    gsm.arenaRadius =
+        (1.0 - world.delta) * gsm.arenaRadius + world.delta * targetRadius;
   }
 
   @override
