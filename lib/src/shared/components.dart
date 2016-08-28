@@ -53,3 +53,5 @@ class Lifetime extends Component {
 }
 
 class Player extends Component {}
+
+class Background extends Component {}

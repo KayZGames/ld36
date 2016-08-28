@@ -72,7 +72,8 @@ class ArrowHitDetectionSystem extends EntityProcessingSystem {
           new SpriteName('blood'),
           new Position(ap.xyz.x, ap.xyz.y),
           new Orientation(0.0),
-          new Lifetime(30.0)
+          new Lifetime(30.0),
+          new Background()
         ]);
         entity.deleteFromWorld();
         break;

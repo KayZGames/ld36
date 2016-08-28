@@ -1,6 +1,6 @@
 part of client;
 
-class PositionRenderingSystem extends EntityProcessingSystem {
+abstract class PositionRenderingSystem extends EntityProcessingSystem {
   TagManager tm;
 
   GameStateManager gsm;
@@ -14,8 +14,8 @@ class PositionRenderingSystem extends EntityProcessingSystem {
   double offsetX;
   double offsetY;
 
-  PositionRenderingSystem(this.ctx, this.sheet)
-      : super(Aspect.getAspectForAllOf([Position, Orientation, SpriteName]));
+  PositionRenderingSystem(this.ctx, this.sheet, Aspect aspect)
+      : super(aspect.allOf([Position, Orientation, SpriteName]));
 
   @override
   void begin() {
@@ -56,6 +56,27 @@ class PositionRenderingSystem extends EntityProcessingSystem {
 //    ctx.strokeRect(-sprite.dst.width/3, -sprite.dst.height/2, sprite.dst.width, sprite.dst.height);
     ctx.restore();
   }
+}
+
+class BackgroundRenderingSystem extends PositionRenderingSystem {
+  Mapper<Lifetime> lm;
+  BackgroundRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getAspectForAllOf([Background, Lifetime]));
+
+  @override
+  void processEntity(Entity entity) {
+    ctx
+      ..save()
+      ..globalAlpha = max(0.0, min(lm[entity].value, 1.0));
+
+    super.processEntity(entity);
+    ctx.restore();
+  }
+}
+
+class ForegroundRenderingSystem extends PositionRenderingSystem {
+  ForegroundRenderingSystem(CanvasRenderingContext2D ctx, SpriteSheet sheet)
+      : super(ctx, sheet, Aspect.getEmpty().exclude([Background]));
 }
 
 class ConnectedClientsRenderer extends VoidEntitySystem {
