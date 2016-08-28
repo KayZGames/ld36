@@ -205,7 +205,7 @@ class InBorderKeepingSystem extends EntityProcessingSystem {
     var p = pm[entity];
 
     if (gsm.arenaRadius < p.xyz.length) {
-      p.xyz = p.xyz.normalized() * gsm.arenaRadius;
+      p.xyz = p.xyz.normalized() * (gsm.arenaRadius - 1);
     }
   }
 }

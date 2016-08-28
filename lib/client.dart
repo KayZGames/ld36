@@ -41,14 +41,15 @@ class Game extends GameBase {
   }
 
   void spawnPlayer() {
-    var x = startX;
-    var y = startY;
+    var gsm = world.getManager(GameStateManager) as GameStateManager;
+    var x = cos(random.nextDouble() * 2 * PI) * gsm.arenaRadius * random.nextDouble();
+    var y = sin(random.nextDouble() * 2 * PI) * gsm.arenaRadius * random.nextDouble();
     var player = addEntity([
       new Position(x, y),
       new Acceleration(),
       new Brake(),
       new Velocity(0.0, 0.0),
-      new Orientation(0.0),
+      new Orientation(random.nextDouble() * 2 * PI),
       new Controller(),
       new SpriteName('chariot'),
       new Player(),

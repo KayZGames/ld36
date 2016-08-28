@@ -5,7 +5,10 @@ class GameStateManager extends Manager {
   var _completer = new Completer<int>();
   int playerCount = 1;
 
-  double arenaRadius = 500.0;
+  double _arenaRadius = 500.0;
+
+  double get arenaRadius => max(_arenaRadius, 500.0);
+  set arenaRadius(double value) => _arenaRadius = value;
 
   Future<int> onGameOver() {
     return _completer.future;
